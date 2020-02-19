@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>hardware on zrx的外置记忆模块</title>
-    <link>https://monellz.github.io/categories/hardware/</link>
+    <link>https://www.monellz.xyz/categories/hardware/</link>
     <description>Recent content in hardware on zrx的外置记忆模块</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 18 Feb 2020 21:53:34 +0800</lastBuildDate>
     
-	<atom:link href="https://monellz.github.io/categories/hardware/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.monellz.xyz/categories/hardware/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>hikey970开发板环境配置与PMU读取</title>
-      <link>https://monellz.github.io/2020/02/18/board/</link>
+      <link>https://www.monellz.xyz/2020/02/18/board/</link>
       <pubDate>Tue, 18 Feb 2020 21:53:34 +0800</pubDate>
       
-      <guid>https://monellz.github.io/2020/02/18/board/</guid>
+      <guid>https://www.monellz.xyz/2020/02/18/board/</guid>
       <description>开发板参数 hikey970开发板参数如下
 其对应的kernel源码在这里
 PMU读取 烧写的系统为lebian9

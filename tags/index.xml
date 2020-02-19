@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on zrx的外置记忆模块</title>
-    <link>https://monellz.github.io/tags/</link>
+    <link>https://www.monellz.xyz/tags/</link>
     <description>Recent content in Tags on zrx的外置记忆模块</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Thu, 20 Feb 2020 00:54:03 +0800</lastBuildDate>
     
-	<atom:link href="https://monellz.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.monellz.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>colab_ex</title>
-      <link>https://monellz.github.io/tags/colab_ex/</link>
+      <link>https://www.monellz.xyz/tags/colab_ex/</link>
       <pubDate>Thu, 20 Feb 2020 00:54:03 +0800</pubDate>
       
-      <guid>https://monellz.github.io/tags/colab_ex/</guid>
+      <guid>https://www.monellz.xyz/tags/colab_ex/</guid>
       <description></description>
     </item>
     
     <item>
       <title>linux kernel</title>
-      <link>https://monellz.github.io/tags/linux-kernel/</link>
+      <link>https://www.monellz.xyz/tags/linux-kernel/</link>
       <pubDate>Thu, 20 Feb 2020 00:54:03 +0800</pubDate>
       
-      <guid>https://monellz.github.io/tags/linux-kernel/</guid>
+      <guid>https://www.monellz.xyz/tags/linux-kernel/</guid>
       <description></description>
     </item>
     
     <item>
       <title>board</title>
-      <link>https://monellz.github.io/tags/board/</link>
+      <link>https://www.monellz.xyz/tags/board/</link>
       <pubDate>Tue, 18 Feb 2020 21:53:34 +0800</pubDate>
       
-      <guid>https://monellz.github.io/tags/board/</guid>
+      <guid>https://www.monellz.xyz/tags/board/</guid>
       <description></description>
     </item>
     
