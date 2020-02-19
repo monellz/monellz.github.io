@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>os on zrx的外置记忆模块</title>
+    <link>https://monellz.github.io/categories/os/</link>
+    <description>Recent content in os on zrx的外置记忆模块</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 20 Feb 2020 00:54:03 +0800</lastBuildDate>
+    
+	<atom:link href="https://monellz.github.io/categories/os/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux kernel入口</title>
+      <link>https://monellz.github.io/2020/02/20/linux_kernel_entry/</link>
+      <pubDate>Thu, 20 Feb 2020 00:54:03 +0800</pubDate>
+      
+      <guid>https://monellz.github.io/2020/02/20/linux_kernel_entry/</guid>
+      <description>入口为init/main.c中的start_kernel函数
+经过一系列的初始化，最后调用rest_init()，在这个函数里，最终调用cpu_startup_entry(位于kernel/sched/idle.c)，通过cpu_idle_loop()进入idle线程的循环
+从kern.log来看，一开始只有cpu0是启动的，在第一次进入idle之后，开始一个个enable其他的cpu
+而module的加载还在后面</description>
+    </item>
+    
+  </channel>
+</rss>

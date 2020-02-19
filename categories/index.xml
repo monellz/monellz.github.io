@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on zrx的外置记忆模块</title>
+    <link>https://monellz.github.io/categories/</link>
+    <description>Recent content in Categories on zrx的外置记忆模块</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 20 Feb 2020 00:54:03 +0800</lastBuildDate>
+    
+	<atom:link href="https://monellz.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>os</title>
+      <link>https://monellz.github.io/categories/os/</link>
+      <pubDate>Thu, 20 Feb 2020 00:54:03 +0800</pubDate>
+      
+      <guid>https://monellz.github.io/categories/os/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hardware</title>
+      <link>https://monellz.github.io/categories/hardware/</link>
+      <pubDate>Tue, 18 Feb 2020 21:53:34 +0800</pubDate>
+      
+      <guid>https://monellz.github.io/categories/hardware/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

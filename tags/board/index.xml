@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>board on zrx的外置记忆模块</title>
+    <link>https://monellz.github.io/tags/board/</link>
+    <description>Recent content in board on zrx的外置记忆模块</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 18 Feb 2020 21:53:34 +0800</lastBuildDate>
+    
+	<atom:link href="https://monellz.github.io/tags/board/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>hikey970开发板环境配置与PMU读取</title>
+      <link>https://monellz.github.io/2020/02/18/board/</link>
+      <pubDate>Tue, 18 Feb 2020 21:53:34 +0800</pubDate>
+      
+      <guid>https://monellz.github.io/2020/02/18/board/</guid>
+      <description>开发板参数 hikey970开发板参数如下
+其对应的kernel源码在这里
+PMU读取 烧写的系统为lebian9
+由于架构为armv8，github上有个很好的用作参考的库,enable_arm_pmu
+  解决编译问题 enable_arm_pmu需要先往内核插入一个模块，因此需要相应架构头文件等进行模块的编译 板子上的uname -r会有奇怪的版本号出现，无法通过包管理器等进行头文件等的安装以及库里Makefile的使用 因此直接利用源码(下面被放在了linux-headers-hikey970-v4.9.zip里)，在对应位置手动进行目录的构建
+#!/bin/bash #run by root mkdir -p /lib/modules/`uname -r` mv /home/shunya/linux-headers-hikey970-v4.9.zip /usr/src/ cd /usr/src unzip linux-headers-hikey970-v4.9.zip rm linux-headers-hikey970-v4.9.zip cd linux-headers-hikey970-v4.9 apt-get install bc gunzip &amp;lt; /proc/config.gz &amp;gt; .config make oldconfig make prepare make scripts cd /lib/modules/`uname -r` ln -s /usr/src/linux-headers-hikey970-v4.9 build   kernel源码dts中添加pmu(支持perf_event)
+在arch/arm64/boot/dts/hisilicon/kirin970-hikey970.dts中添加如下
+pmu { compatible = &amp;#34;arm,armv8-pmuv3&amp;#34;; interrupts = &amp;lt;0 24 4&amp;gt;, &amp;lt;0 25 4&amp;gt;, &amp;lt;0 26 4&amp;gt;, &amp;lt;0 27 4&amp;gt;, &amp;lt;0 2 4&amp;gt;, &amp;lt;0 3 4&amp;gt;, &amp;lt;0 4 4&amp;gt;, &amp;lt;0 5 4&amp;gt;; interrupt-affinity = &amp;lt;&amp;amp;cpu0&amp;gt;, &amp;lt;&amp;amp;cpu1&amp;gt;, &amp;lt;&amp;amp;cpu2&amp;gt;, &amp;lt;&amp;amp;cpu3&amp;gt;, &amp;lt;&amp;amp;cpu4&amp;gt;, &amp;lt;&amp;amp;cpu5&amp;gt;, &amp;lt;&amp;amp;cpu6&amp;gt;, &amp;lt;&amp;amp;cpu7&amp;gt;; };   测试 实际测试中发现在单核(其他cpu被disable)情况下pmu(寄存器)读取十分稳定，但在多核情况仍然会出现illegal instruction的问题</description>
+    </item>
+    
+  </channel>
+</rss>

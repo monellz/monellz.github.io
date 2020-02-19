@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>zrx的外置记忆模块</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    
+    
+
+        <meta property="og:title" content="zrx的外置记忆模块" />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:url" content="https://monellz.github.io/" />
+    
+<link href="https://monellz.github.io/index.xml" rel="alternate" type="application/rss+xml" title="zrx的外置记忆模块" />
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://monellz.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://monellz.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://monellz.github.io/css/style.css">
+    
+
+    <meta name="generator" content="Hugo 0.64.1" />
+</head>
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://monellz.github.io/">zrx的外置记忆模块</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/categories/">分类</a>
+                
+                <a class="main-nav-link" href="/tags/">标签</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="/2020/02/20/linux_kernel_entry/">Linux kernel入口</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="/2020/02/20/linux_kernel_entry/" class="article-date">
+                        <time datetime='2020-02-20T00:54:03.000&#43;08:00' itemprop="datePublished">2020-02-20</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://monellz.github.io//categories/os">os</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    入口为init/main.c中的start_kernel函数
+经过一系列的初始化，最后调用rest_init()，在这个函数里，最终调用cpu_startup_entry(位于kernel/sched/idle.c)，通过cpu_idle_loop()进入idle线程的循环
+从kern.log来看，一开始只有cpu0是启动的，在第一次进入idle之后，开始一个个enable其他的cpu
+而module的加载还在后面
+                    </p>
+                    <p class="article-more-link">
+                        <a href="/2020/02/20/linux_kernel_entry/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://monellz.github.io//tags/linux-kernel">linux kernel
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://monellz.github.io//tags/colab_ex">colab_ex
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="/2020/02/18/board/">hikey970开发板环境配置与PMU读取</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="/2020/02/18/board/" class="article-date">
+                        <time datetime='2020-02-18T21:53:34.000&#43;08:00' itemprop="datePublished">2020-02-18</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://monellz.github.io//categories/hardware">hardware</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    开发板参数 hikey970开发板参数如下
+其对应的kernel源码在这里
+PMU读取 烧写的系统为lebian9
+由于架构为armv8，github上有个很好的用作参考的库,enable_arm_pmu
+  解决编译问题 enable_arm_pmu需要先往内核插入一个模块，因此需要相应架构头文件等进行模块的编译 板子上的uname -r会有奇怪的版本号出现，无法通过包管理器等进行头文件等的安装以及库里Makefile的使用 因此直接利用源码(下面被放在了linux-headers-hikey970-v4.9.zip里)，在对应位置手动进行目录的构建
+#!/bin/bash #run by root mkdir -p /lib/modules/`uname -r` mv /home/shunya/linux-headers-hikey970-v4.9.zip /usr/src/ cd /usr/src unzip linux-headers-hikey970-v4.9.zip rm linux-headers-hikey970-v4.9.zip cd linux-headers-hikey970-v4.9 apt-get install bc gunzip &lt; /proc/config.gz &gt; .config make oldconfig make prepare make scripts cd /lib/modules/`uname -r` ln -s /usr/src/linux-headers-hikey970-v4.9 build   kernel源码dts中添加pmu(支持perf_event)
+在arch/arm64/boot/dts/hisilicon/kirin970-hikey970.dts中添加如下
+pmu { compatible = &#34;arm,armv8-pmuv3&#34;; interrupts = &lt;0 24 4&gt;, &lt;0 25 4&gt;, &lt;0 26 4&gt;, &lt;0 27 4&gt;, &lt;0 2 4&gt;, &lt;0 3 4&gt;, &lt;0 4 4&gt;, &lt;0 5 4&gt;; interrupt-affinity = &lt;&amp;cpu0&gt;, &lt;&amp;cpu1&gt;, &lt;&amp;cpu2&gt;, &lt;&amp;cpu3&gt;, &lt;&amp;cpu4&gt;, &lt;&amp;cpu5&gt;, &lt;&amp;cpu6&gt;, &lt;&amp;cpu7&gt;; };   测试 实际测试中发现在单核(其他cpu被disable)情况下pmu(寄存器)读取十分稳定，但在多核情况仍然会出现illegal instruction的问题
+                    </p>
+                    <p class="article-more-link">
+                        <a href="/2020/02/18/board/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://monellz.github.io//tags/board">board
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://monellz.github.io//tags/colab_ex">colab_ex
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+
+        
+
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 zrx的外置记忆模块
+            <br />
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
+        <script>renderMathInElement(document.body);</script>
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>
