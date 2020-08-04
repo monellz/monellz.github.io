@@ -81,6 +81,53 @@
 <p>经过一系列的初始化，最后调用<code>rest_init()</code>，在这个函数里，最终调用<code>cpu_startup_entry</code>(位于<code>kernel/sched/idle.c</code>)，通过<code>cpu_idle_loop()</code>进入idle线程的循环</p>
 <p>从kern.log来看，一开始只有cpu0是启动的，在第一次进入idle之后，开始一个个enable其他的cpu</p>
 <p>而module的加载还在后面</p>
+<h2 id="多cpu启动">多CPU启动</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">boot_cpu_init();
+setup_nr_cpu_ids();
+setup_per_cpu_areas();
+boot_cpu_state_init();
+smp_prepare_boot_cpu();
+</code></pre></div><h3 id="boot_cpu_init">boot_cpu_init</h3>
+<p>在<code>start_kernel</code>中调用<code>boot_cpu_init()</code>位于<code>kernel/cpu.c</code>，用于<code>activate the first processor</code></p>
+<p><code>smp_processor_id()</code>被定义在<code>include/linux/smp.h</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#</span><span style="color:#75715e">ifdef CONFIG_DEBUG_PREEMPT</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">debug_smp_processor_id</span>(<span style="color:#66d9ef">void</span>);
+<span style="color:#75715e">#</span><span style="color:#75715e"> define smp_processor_id() debug_smp_processor_id()</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">else</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e"> define smp_processor_id() raw_smp_processor_id()</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">endif</span><span style="color:#75715e">
+</span></code></pre></div><p>在hikey970中没有设置<code>CONFIG_DEBUG_PREEMPT</code>因此为<code>raw_smp_processor_id()</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">//arch/arm64/include/asm/smp.h
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define raw_smp_processor_id() (current_thread_info()-&gt;cpu)</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">struct</span> thread_info <span style="color:#f92672">*</span><span style="color:#a6e22e">current_thread_info</span>(<span style="color:#66d9ef">void</span>)
+{
+	<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> sp_el0;
+	<span style="color:#66d9ef">asm</span> (<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mrs %0, sp_el0</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">=r</span><span style="color:#e6db74">&#34;</span> (sp_el0));
+    
+	<span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">struct</span> thread_info <span style="color:#f92672">*</span>)sp_el0;
+}
+<span style="color:#75715e">//arch/arm64/include/asm/thread_info.h
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> thread_info {
+	<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span>		flags;		<span style="color:#75715e">/* low level flags */</span>
+	mm_segment_t		addr_limit;	<span style="color:#75715e">/* address limit */</span>
+	<span style="color:#66d9ef">struct</span> task_struct	<span style="color:#f92672">*</span>task;		<span style="color:#75715e">/* main task structure */</span>
+<span style="color:#75715e">#</span><span style="color:#75715e">ifdef CONFIG_ARM64_SW_TTBR0_PAN</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>	u64			ttbr0;		<span style="color:#75715e">/* saved TTBR0_EL1 */</span>
+<span style="color:#75715e">#</span><span style="color:#75715e">endif</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">int</span>			preempt_count;	<span style="color:#75715e">/* 0 =&gt; preemptable, &lt;0 =&gt; bug */</span>
+	<span style="color:#66d9ef">int</span>			cpu;		<span style="color:#75715e">/* cpu */</span>
+};
+</code></pre></div><h3 id="setup_nr_cpu_ids">setup_nr_cpu_ids</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* An arch may set nr_cpu_ids earlier if needed, so this would be redundant */</span>
+<span style="color:#66d9ef">void</span> __init <span style="color:#a6e22e">setup_nr_cpu_ids</span>(<span style="color:#66d9ef">void</span>)
+{
+	nr_cpu_ids <span style="color:#f92672">=</span> find_last_bit(cpumask_bits(cpu_possible_mask),NR_CPUS) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+}
+</code></pre></div><h3 id="setup_per_cpu_areas">setup_per_cpu_areas</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">//arch/arm64/mm/numa.c
+</span></code></pre></div><p>arch/arm64/kernel/smp.c</p>
+<p>__cpu_up</p>
 
         </div>
 
@@ -88,7 +135,17 @@
         
         <div class="article-toc" style="display:none;">
             <h3>Contents</h3>
-            <nav id="TableOfContents"></nav>
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#多cpu启动">多CPU启动</a>
+      <ul>
+        <li><a href="#boot_cpu_init">boot_cpu_init</a></li>
+        <li><a href="#setup_nr_cpu_ids">setup_nr_cpu_ids</a></li>
+        <li><a href="#setup_per_cpu_areas">setup_per_cpu_areas</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
         </div>
         
         

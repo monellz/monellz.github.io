@@ -85,10 +85,10 @@
 <p>由于架构为armv8，github上有个很好的用作参考的库,<a href="https://github.com/rdolbeau/enable_arm_pmu">enable_arm_pmu</a></p>
 <ul>
 <li>
-<p>解决编译问题
-enable_arm_pmu需要先往内核插入一个模块，因此需要相应架构头文件等进行模块的编译
-板子上的<code>uname -r</code>会有奇怪的版本号出现，无法通过包管理器等进行头文件等的安装以及库里Makefile的使用
-因此直接利用源码(下面被放在了<code>linux-headers-hikey970-v4.9.zip</code>里)，在对应位置手动进行目录的构建</p>
+<p>解决编译问题</p>
+<p>enable_arm_pmu需要先往内核插入一个模块，因此需要相应架构头文件等进行模块的编译</p>
+<p>板子上的<code>uname -r</code>会有奇怪的版本号出现，无法通过包管理器等进行头文件等的安装以及库里Makefile的使用</p>
+<p>因此直接利用源码(下面被放在了<code>linux-headers-hikey970-v4.9.zip</code>里)，在对应位置手动进行目录的构建</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
 </span><span style="color:#75715e"></span><span style="color:#75715e">#run by root</span>
 
