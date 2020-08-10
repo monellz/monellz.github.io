@@ -4,12 +4,37 @@
   
   <url>
     <loc>https://www.monellz.xyz/2020/</loc>
-    <lastmod>2020-02-20T00:54:03+08:00</lastmod>
+    <lastmod>2020-08-10T10:46:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.monellz.xyz/tags/bash/</loc>
+    <lastmod>2020-08-10T10:46:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.monellz.xyz/2020/08/10/bash_pass_args/</loc>
+    <lastmod>2020-08-10T10:46:03+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.monellz.xyz/categories/</loc>
-    <lastmod>2020-02-20T00:54:03+08:00</lastmod>
+    <lastmod>2020-08-10T10:46:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.monellz.xyz/categories/linux/</loc>
+    <lastmod>2020-08-10T10:46:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.monellz.xyz/tags/</loc>
+    <lastmod>2020-08-10T10:46:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.monellz.xyz/</loc>
+    <lastmod>2020-08-10T10:46:03+08:00</lastmod>
   </url>
   
   <url>
@@ -29,16 +54,6 @@
   
   <url>
     <loc>https://www.monellz.xyz/categories/os/</loc>
-    <lastmod>2020-02-20T00:54:03+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.monellz.xyz/tags/</loc>
-    <lastmod>2020-02-20T00:54:03+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.monellz.xyz/</loc>
     <lastmod>2020-02-20T00:54:03+08:00</lastmod>
   </url>
   

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>bash on zrx的外置记忆模块</title>
+    <link>https://www.monellz.xyz/tags/bash/</link>
+    <description>Recent content in bash on zrx的外置记忆模块</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 10 Aug 2020 10:46:03 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.monellz.xyz/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>bash脚本中传递带引号的参数</title>
+      <link>https://www.monellz.xyz/2020/08/10/bash_pass_args/</link>
+      <pubDate>Mon, 10 Aug 2020 10:46:03 +0800</pubDate>
+      
+      <guid>https://www.monellz.xyz/2020/08/10/bash_pass_args/</guid>
+      <description>用bash来执行其他文件时，若直接使用$*来传递参数，则会导致其中的双引号被去掉，应使用&amp;quot;$@&amp;quot;来传递参数</description>
+    </item>
+    
+  </channel>
+</rss>
