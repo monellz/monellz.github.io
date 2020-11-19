@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>python on zrx的外置记忆模块</title><link>https://www.monellz.xyz/tags/python/</link><description>Recent content in python on zrx的外置记忆模块</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 19 Nov 2020 10:09:38 +0800</lastBuildDate><atom:link href="https://www.monellz.xyz/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>DaCe(SC19)分析-1</title><link>https://www.monellz.xyz/2020/11/19/dace-1/</link><pubDate>Thu, 19 Nov 2020 10:09:38 +0800</pubDate><guid>https://www.monellz.xyz/2020/11/19/dace-1/</guid><description>开一个新坑，对SC19的异构编程框架文章dace分析源码，顺便看一下现代python的写法以及与后端c++的协同方式
+从dace的tutorial例子出发
+import dace @dace.program def getstarted(A): return A + A 啪就来个装饰器，很快啊（
+首先在dace/__init__.py下，所有装饰被导出
+from .frontend.python.decorators import * 继续往里走就是dace/frontend/python/decorators.</description></item></channel></rss>
